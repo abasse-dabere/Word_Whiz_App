@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../custom_widgets/category_display.dart';
 import '../custom_widgets/custom_title.dart';
 import '../custom_widgets/post_display.dart';
 
@@ -20,6 +21,7 @@ class HomePage extends StatelessWidget {
           helloDisplay(),
           searchBarDisplay(),
           trendsDisplay(context),
+          categoryDisplay(context),
         ],
       ),
     );
@@ -112,19 +114,66 @@ class HomePage extends StatelessWidget {
             clickable: true,
           ),
           const SizedBox(height: 10),
-          ...quiz_list_data.entries.map((entry) {
-            var quizData = entry.value;
+          ...trendsQuiz.map((entry) {
             return PostDisplay(
-              image: AssetImage(quizData['image']),
-              username: quizData['username'],
-              topic: quizData['topic'],
-              title: quizData['title'],
-              likes: quizData['likestr'],
+              image: AssetImage(quizList[entry]?['image']),
+              username: quizList[entry]?['username'],
+              topic: quizList[entry]?['topic'],
+              title: quizList[entry]?['title'],
+              likes: quizList[entry]?['likestr'],
               onTap: () {},
             );
           }).toList(),
         ],
       ),
+    );
+  }
+
+  Widget categoryDisplay(BuildContext context) {
+    return Column(
+      children: [
+        CustomTitle(
+          color: Colors.green,
+          title: "Categories",
+          clickable: true,
+          onTap: () {},
+        ),
+        const SizedBox(height: 10),
+        Row(
+          children: [
+            Expanded(
+              flex: 1,
+              child: Column(
+                children: [
+                  ...trendsCategories.take(2).map((entry) {
+                    return CategoryDisplay(
+                      image: AssetImage(categoriesList[entry]?['image']),
+                      topic: entry,
+                      onTap: () {},
+                    );
+                  }).toList(),
+                  const SizedBox(height: 25),
+                ],
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: Column(
+                children: [
+                  const SizedBox(height: 25),
+                  ...trendsCategories.skip(2).take(2).map((entry) {
+                    return CategoryDisplay(
+                      image: AssetImage(categoriesList[entry]?['image']),
+                      topic: entry,
+                      onTap: () {},
+                    );
+                  }).toList(),
+                ],
+              ),
+            ),
+          ],
+        )
+      ],
     );
   }
 }
