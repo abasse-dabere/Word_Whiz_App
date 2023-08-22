@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-// import 'navigation_bar.dart';
+
+import 'navigation_page.dart';
 
 class GetStartedPage extends StatelessWidget {
   GetStartedPage({super.key});
@@ -124,10 +125,10 @@ class GetStartedPage extends StatelessWidget {
           flex: 2,
           child: ElevatedButton(
             onPressed: () {
-              //   Navigator.of(context)
-              //       .push(MaterialPageRoute(builder: (BuildContext context) {
-              //     return const NavBar();
-              //   }));
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (BuildContext context) {
+                return const NavigationPage();
+              }));
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.white, // Set the button color
