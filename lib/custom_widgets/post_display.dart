@@ -20,75 +20,73 @@ class PostDisplay extends StatelessWidget {
     return InkWell(
       splashColor: Colors.grey,
       onTap: onTap,
-      child: SizedBox(
-        height: 100,
-        child: Padding(
-          padding: const EdgeInsets.all(5.0),
-          child: Row(
-            children: [
-              Expanded(
-                flex: 1,
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    image: DecorationImage(
-                      image: image,
-                      fit: BoxFit.cover,
-                    ),
+      child: Padding(
+        padding: const EdgeInsets.all(5.0),
+        child: Row(
+          children: [
+            Expanded(
+              flex: 1,
+              child: Container(
+                height: 100,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  image: DecorationImage(
+                    image: image,
+                    fit: BoxFit.cover,
                   ),
                 ),
               ),
-              Expanded(
-                flex: 2,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 10),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(height: 2),
-                      Text(
-                        topic,
-                        style: GoogleFonts.arimo(
-                          fontSize: 14,
-                          color: Colors.green,
-                          fontWeight: FontWeight.bold,
+            ),
+            Expanded(
+              flex: 2,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 10),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 2),
+                    Text(
+                      topic,
+                      style: GoogleFonts.arimo(
+                        fontSize: 14,
+                        color: Colors.green,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      title,
+                      style: GoogleFonts.arimo(
+                        fontSize: 16,
+                        color: Colors.black,
+                      ),
+                    ),
+                    const SizedBox(height: 5),
+                    Row(
+                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SizedBox(
+                          width: 80,
+                          child: Row(children: [
+                            const Icon(Icons.favorite, color: Colors.red),
+                            Text(" $likes"),
+                          ]),
                         ),
-                      ),
-                      Text(
-                        title,
-                        style: GoogleFonts.arimo(
-                          fontSize: 16,
-                          color: Colors.black,
+                        Text(
+                          " @$username",
+                          style: GoogleFonts.arimo(
+                            fontSize: 11,
+                            color: Colors.grey,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                      Row(
-                        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          SizedBox(
-                            width: 80,
-                            child: Row(children: [
-                              const Icon(Icons.favorite, color: Colors.red),
-                              Text(" $likes"),
-                            ]),
-                          ),
-                          Text(
-                            " @$username",
-                            style: GoogleFonts.arimo(
-                              fontSize: 11,
-                              color: Colors.grey,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 2),
-                    ],
-                  ),
+                      ],
+                    ),
+                  ],
                 ),
-              )
-            ],
-          ),
+              ),
+            )
+          ],
         ),
       ),
     );

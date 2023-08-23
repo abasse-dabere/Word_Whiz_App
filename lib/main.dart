@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'pages/get_started_page.dart';
 
 void main() {
@@ -12,16 +13,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.red,
-          titleTextStyle: TextStyle(
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.white,
+          titleTextStyle: GoogleFonts.arimo(
             fontSize: 20,
             color: Colors.black,
             fontWeight: FontWeight.bold,
-            fontFamily: 'Arimo',
           ),
           elevation: 0,
-          iconTheme: IconThemeData(
+          iconTheme: const IconThemeData(
             color: Colors.black,
           ),
         ),

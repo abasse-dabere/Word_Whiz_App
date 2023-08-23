@@ -1,35 +1,58 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../custom_widgets/category_display.dart';
 import '../custom_widgets/custom_title.dart';
 import '../custom_widgets/post_display.dart';
 
 import '../data/quiz_examples.dart';
+import 'category_page.dart';
+import 'post_page.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage>
+    with AutomaticKeepAliveClientMixin<HomePage> {
+  @override
+  bool get wantKeepAlive => true;
+
+  Future<void> handleRefresh() async {
+    await Future.delayed(const Duration(seconds: 1));
+    setState(
+        () {}); // Appelez setState pour notifier que le rafraîchissement est terminé
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 25.0),
-      child: ListView(
-        physics: const BouncingScrollPhysics(),
-        scrollDirection: Axis.vertical,
-        children: [
-          helloDisplay(),
-          searchBarDisplay(),
-          trendsDisplay(context),
-          categoryDisplay(context),
-        ],
+    super.build(context);
+    return RefreshIndicator(
+      onRefresh: handleRefresh,
+      color: Colors.green,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 25.0),
+        child: ListView(
+          physics: const BouncingScrollPhysics(),
+          scrollDirection: Axis.vertical,
+          children: [
+            helloDisplay(),
+            searchBarDisplay(),
+            trendsDisplay(context),
+            categoryDisplay(context),
+          ],
+        ),
       ),
     );
   }
 
   Widget helloDisplay() {
-    return const Padding(
-      padding: EdgeInsets.symmetric(vertical: 20.0),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 20.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -39,27 +62,25 @@ class HomePage extends StatelessWidget {
             children: [
               Text(
                 "Hello,",
-                style: TextStyle(
+                style: GoogleFonts.arimo(
                   fontSize: 16,
                   color: Colors.black,
-                  fontFamily: 'Arimo',
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 7,
               ),
               Text(
                 "Dabere 👋",
-                style: TextStyle(
+                style: GoogleFonts.arimo(
                   fontSize: 20,
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
-                  fontFamily: 'Arimo',
                 ),
               ),
             ],
           ),
-          CircleAvatar(
+          const CircleAvatar(
             radius: 20,
             backgroundImage: AssetImage("assets/images/drax.png"),
           )
@@ -78,13 +99,17 @@ class HomePage extends StatelessWidget {
           ),
           child: Row(
             children: [
-              const Expanded(
+              Expanded(
                 child: TextField(
                   decoration: InputDecoration(
                     hintText: '100 common words ...',
+                    hintStyle: GoogleFonts.arimo(
+                      fontSize: 16,
+                      color: Colors.grey,
+                    ),
                     border: InputBorder.none,
-                    contentPadding:
-                        EdgeInsets.symmetric(horizontal: 30, vertical: 12),
+                    contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 30, vertical: 12),
                   ),
                 ),
               ),
@@ -120,8 +145,17 @@ class HomePage extends StatelessWidget {
               username: quizList[entry]?['username'],
               topic: quizList[entry]?['topic'],
               title: quizList[entry]?['title'],
-              likes: quizList[entry]?['likestr'],
-              onTap: () {},
+              likes:
+                  "${(quizList[entry]?['likes'] / 1000).toStringAsFixed(1)}k",
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (BuildContext context) {
+                      return PostPage(quiz: entry);
+                    },
+                  ),
+                );
+              },
             );
           }).toList(),
         ],
@@ -149,7 +183,15 @@ class HomePage extends StatelessWidget {
                     return CategoryDisplay(
                       image: AssetImage(categoriesList[entry]?['image']),
                       topic: entry,
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (BuildContext context) {
+                              return CategoryPage(category: entry);
+                            },
+                          ),
+                        );
+                      },
                     );
                   }).toList(),
                   const SizedBox(height: 25),
@@ -165,7 +207,15 @@ class HomePage extends StatelessWidget {
                     return CategoryDisplay(
                       image: AssetImage(categoriesList[entry]?['image']),
                       topic: entry,
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (BuildContext context) {
+                              return CategoryPage(category: entry);
+                            },
+                          ),
+                        );
+                      },
                     );
                   }).toList(),
                 ],
